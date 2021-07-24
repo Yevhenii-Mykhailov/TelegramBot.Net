@@ -1,13 +1,12 @@
 ﻿using System;
 using Telegram.Bot;
-using Telegram.Bot.Args;
 using TelegramBot.CustomControls;
 
 namespace TelegramBot
 {
-    public class Program : BotHelper
+    class Program : BotHelper
     {
-        
+
         [Obsolete]
         static void Main()
         {
@@ -21,12 +20,14 @@ namespace TelegramBot
 
                 BotClient.StartReceiving();
                 Console.ReadLine();
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
-                                    
+
+
         }
 
     }

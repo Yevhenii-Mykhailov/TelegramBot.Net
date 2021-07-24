@@ -10,9 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="BotHelpers\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BotHelpers\" />
+    <None Remove="OpenWeatherMap.Standard" />
+    <None Remove="Awesomio.Weather" />
   </ItemGroup>
 </Project>
