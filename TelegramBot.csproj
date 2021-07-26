@@ -12,5 +12,9 @@
   <ItemGroup>
     <None Remove="OpenWeatherMap.Standard" />
     <None Remove="Awesomio.Weather" />
+    <None Remove="OpenWeatherService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="OpenWeatherService\" />
   </ItemGroup>
 </Project>
