@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace TelegramBot
 {
@@ -13,6 +13,8 @@ namespace TelegramBot
         public int Visibility { get; set; }
         public WindInfo Wind { get; set; }
         public CloudsInfo Clouds { get; set; }
+        public RainInfo Rain { get; set; }
+        public SnowInfo Snow { get; set; }
         public int Dt { get; set; }
         public SystemInfo Sys { get; set; }
         public int Id { get; set; }
@@ -39,26 +41,47 @@ namespace TelegramBot
     {
         public double Temp { get; set; }
 
-        [JsonPropertyName("feels_like")]
+        [JsonProperty("feels_like")]
         public double FeelsLike { get; set; }
 
-        [JsonPropertyName("temp_min")]
+        [JsonProperty("temp_min")]
         public double TempMin { get; set; }
 
-        [JsonPropertyName("temp_max")]
+        [JsonProperty("temp_max")]
         public double TempMax { get; set; }
         public int Pressure { get; set; }
         public int Humidity { get; set; }
 
+        [JsonProperty("sea_level")]
+        public double SeaLevel { get; set; }
+
+        [JsonProperty("grnd_level")]
+        public double GroundLevel { get; set; }
     }
     public class WindInfo
     {
         public double Speed { get; set; }
         public double Deg { get; set; }
+        public double Gust { get; set; }
     }
     public class CloudsInfo
     {
         public int All { get; set; }
+    }
+
+    public class RainInfo
+    {
+        [JsonProperty("1h")]
+        public double RainPerHour { get; set; }
+        [JsonProperty("3h")]
+        public double RainPerThreeHours { get; set; }
+    }
+    public class SnowInfo
+    {
+        [JsonProperty("1h")]
+        public double SnowPerHour { get; set; }
+        [JsonProperty("3h")]
+        public double SnowPerThreeHours { get; set; }
     }
     public class SystemInfo
     {
