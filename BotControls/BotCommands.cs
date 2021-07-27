@@ -1,6 +1,6 @@
 ﻿using System;
 using Telegram.Bot.Args;
-using TelegramBot.CustomControls;
+using TelegramBot.BotControls;
 
 namespace TelegramBot
 {

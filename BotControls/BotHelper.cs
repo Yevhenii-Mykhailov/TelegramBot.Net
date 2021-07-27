@@ -1,7 +1,7 @@
 ﻿using System;
 using Telegram.Bot;
 
-namespace TelegramBot.CustomControls
+namespace TelegramBot.BotControls
 {
     public class BotHelper
     {
