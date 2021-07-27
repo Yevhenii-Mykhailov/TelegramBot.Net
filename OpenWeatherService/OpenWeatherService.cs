@@ -14,14 +14,14 @@ namespace TelegramBot
         private readonly HttpClient client = new HttpClient();
         private string URL = $"https://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={APIKEY}";
         
-        public async Task<OpenWeatherModel> GetWeatherModelAsync(string Url)
+        public async Task<OpenWeatherModel> GetWeatherModelAsync()
         {
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
             client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
             
-            var responce = await client.GetAsync(Url);
+            var responce = await client.GetAsync(URL);
             string responceBody = await responce.Content.ReadAsStringAsync();
 
             return JsonConvert.DeserializeObject<OpenWeatherModel>(responceBody);

@@ -7,10 +7,7 @@ namespace TelegramBot
 {
     public class Program : BotHelper
     {
-        private const string APIKEY = "19e61cb7f95ce780f94c2f1eeae6f4ec";
-        private const string CITY = "Kobrin";
-        private string URL = $"https://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={APIKEY}";
-
+        
         [Obsolete]
         public static async Task Main()
         {
@@ -21,7 +18,7 @@ namespace TelegramBot
 
             try
             {
-                var model = await openWeatherService.GetWeatherModelAsync(URL);
+                var model = await openWeatherService.GetWeatherModelAsync();
                 Console.WriteLine(model);
                 BotClient.OnMessage += botCommands.SendUserLocation;
                 BotClient.OnMessage += botCommands.SendUserFullName;
