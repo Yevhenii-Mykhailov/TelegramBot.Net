@@ -6,33 +6,36 @@ namespace TelegramBot
 {
     public class BotCommands : BotHelper
     {
+        readonly OpenWeatherService openWeatherService = new();
+
         [Obsolete]
-        public void SendUserLocation(object sender, MessageEventArgs e)
+        public async void SendRequestedWeather(object sender, MessageEventArgs e)
         {
+            var weatherModel = await openWeatherService.GetWeatherModelAsyncByCityName(e.Message.Text);
 
-            if (e.Message.Location != null)
+            Console.WriteLine(e.Message.Text);
+
+            if (e.Message.Text == "/start")
             {
-                string userLatitude = Convert.ToString(e.Message.Location.Latitude);
-                string userLongitude = Convert.ToString(e.Message.Location.Longitude);
-
-                BotClient.SendTextMessageAsync(
+                await BotClient.SendTextMessageAsync(
                 chatId: e.Message.Chat,
-                text: $"Your Location is: Latitude:{userLatitude}; Longitude:{userLongitude}"
+                text: $"Hello, I am weather bot. Let's rock! Type city name and I will show you temperature :)"
                 );
             }
-        }
-                
-        [Obsolete]
-        public void SendUserFullName(object sender, MessageEventArgs e)
-        {
-            string userFirstName = e.Message.From.FirstName;
-            string userLastName = e.Message.From.LastName;
 
-            if (e.Message.Text != null)
+            else if (weatherModel.Cod == 200)
             {
-                BotClient.SendTextMessageAsync(
+                
+               await BotClient.SendTextMessageAsync(
                 chatId: e.Message.Chat,
-                text: $"Your name is {userFirstName} {userLastName}"
+                text: $"Temperature in {e.Message.Text} is {weatherModel.Main.Temp} in celsius"
+                );
+            }
+            else
+            {
+                await BotClient.SendTextMessageAsync(
+                chatId: e.Message.Chat,
+                text: $"Wrong City Name. Try againe"
                 );
             }
         }

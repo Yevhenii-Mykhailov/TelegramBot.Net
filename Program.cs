@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Telegram.Bot;
 using TelegramBot;
 using TelegramBot.BotControls;
@@ -8,21 +7,18 @@ namespace TelegramBots
 {
     public class Program : BotHelper
     {
-        
+
         [Obsolete]
-        public static async Task Main()
+        public static void Main()
         {
-            OpenWeatherService openWeatherService = new OpenWeatherService();
-            Configs configs = new Configs();
+            Configuration configs = new();
 
             BotClient = new TelegramBotClient(configs.BotKey);
-            BotCommands botCommands = new BotCommands();
+            BotCommands botCommands = new();
 
             try
             {
-                var model = await openWeatherService.GetWeatherModelAsync();
-                BotClient.OnMessage += botCommands.SendUserLocation;
-                BotClient.OnMessage += botCommands.SendUserFullName;
+                BotClient.OnMessage += botCommands.SendRequestedWeather;
                 BotClient.StartReceiving();
                 Console.ReadLine();
 
@@ -32,7 +28,7 @@ namespace TelegramBots
                 Console.WriteLine(ex);
             }
 
-        }   
+        }
 
     }
 
