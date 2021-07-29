@@ -1,5 +1,4 @@
-﻿using System;
-namespace TelegramBot
+﻿namespace TelegramBot
 {
     public class Configuration
     {

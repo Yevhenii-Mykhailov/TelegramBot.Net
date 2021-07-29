@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using Telegram.Bot.Args;
 using TelegramBot.BotControls;
 
@@ -7,15 +9,19 @@ namespace TelegramBot
     public class BotCommands : BotHelper
     {
         readonly OpenWeatherService openWeatherService = new();
+        public readonly HttpClient client = new();
 
-        [Obsolete]
+        [ObsoleteAttribute("This property is obsolete and will be removed", false)]
         public async void SendRequestedWeather(object sender, MessageEventArgs e)
         {
             var weatherModel = await openWeatherService.GetWeatherModelAsyncByCityName(e.Message.Text);
 
-            Console.WriteLine(e.Message.Text);
+            string userMessage = e.Message.Text;
+            int responceCode = weatherModel.Cod;
+            
+            Console.WriteLine(userMessage);
 
-            if (e.Message.Text == "/start")
+            if (userMessage == "/start")
             {
                 await BotClient.SendTextMessageAsync(
                 chatId: e.Message.Chat,
@@ -23,12 +29,20 @@ namespace TelegramBot
                 );
             }
 
-            else if (weatherModel.Cod == 200)
+            else if (responceCode == 200)
             {
-                
-               await BotClient.SendTextMessageAsync(
+                double currentTemperature = Math.Round(weatherModel.Main.Temp);
+                string currentClouds = weatherModel.Weather[0].Description;
+                double windSpeed = Math.Round(weatherModel.Wind.Speed);
+
+                //string iconCode = weatherModel.Weather[0].Icon;
+                //string weatherIconUrl = $"http://openweathermap.org/img/wn/{iconCode}.png";
+
+                await BotClient.SendTextMessageAsync(
                 chatId: e.Message.Chat,
-                text: $"Temperature in {e.Message.Text} is {weatherModel.Main.Temp} in celsius"
+                text: $"Temperature in {userMessage} is {currentTemperature}°С \n\n" +
+                      $"There is {currentClouds} \n\n" +
+                      $"Wind speed is {windSpeed}m/s \n\n"
                 );
             }
             else
