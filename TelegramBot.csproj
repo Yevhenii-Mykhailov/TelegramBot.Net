@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Telegram.Bot" Version="16.0.2" />
+    <PackageReference Include="Telegram.Bot" Version="17.0.0" />
+    <PackageReference Include="Telegram.Bot.Extensions.Polling" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,6 +15,7 @@
     <None Remove="Awesomio.Weather" />
     <None Remove="OpenWeatherService\" />
     <None Remove="Configs\" />
+    <None Remove="Telegram.Bot.Extensions.Polling" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="OpenWeatherService\" />

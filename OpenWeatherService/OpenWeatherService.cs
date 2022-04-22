@@ -8,9 +8,7 @@ namespace TelegramBot
 {
     public class OpenWeatherService : Configuration
     {
-        
         private readonly HttpClient client = new();
-        
         public async Task<OpenWeatherModel> GetWeatherModelAsyncByCityName(string cityName)
         {
             client.DefaultRequestHeaders.Accept.Clear();
@@ -24,6 +22,5 @@ namespace TelegramBot
             return JsonConvert.DeserializeObject<OpenWeatherModel>(responceBody);
 
         }
-
     }
 }
