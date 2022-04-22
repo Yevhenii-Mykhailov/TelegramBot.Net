@@ -53,6 +53,13 @@ namespace TelegramBots
                 var chatId = update.Message.Chat.Id;
                 var messageText = update.Message.Text;
 
+                // Echo received message text
+                Message sentMessage = await botClient.SendTextMessageAsync(
+                    chatId: chatId,
+                    text: "Requested city: " + messageText,
+                    cancellationToken: cancellationToken
+                    );
+
                 if (messageText == "/start")
                 {
                     await BotClient.SendTextMessageAsync(
